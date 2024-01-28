@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% block title %}Add A Pet{% endblock %}
+    
+{% block content%}
+<div class="container">
+    <form action="/add" method="POST" class="form" id="add-pet-form" autocomplete="off">
+        {{ form.hidden_tag() }}
+       <div class="row justify-content-center">
+            <div class="col-md-8">
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                <div class="mb-3 d-flex flex-column">
+                    {{ field.label(class="form-label") }}
+                    {{ field(class="form-control", autocomplete='off') }}
+                    {% for error in field.errors %}
+                        <div class="invalid-feedback" style="display: block;">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    <div class="form-actions text-center">
+        <button name="action_save" type="submit" class="btn btn-primary mt-3">
+          Save
+        </button>
+        <a href="/" class="btn btn-secondary mt-3">Back</a>
+      </div>
+    </form>
+</div>
+{% endblock %}
